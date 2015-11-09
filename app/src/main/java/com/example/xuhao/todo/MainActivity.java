@@ -1,5 +1,8 @@
 package com.example.xuhao.todo;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -10,6 +13,8 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import layout.BlankFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN)
-                    if((keyCode == KeyEvent.KEYCODE_DPAD_CENTER) ||(keyCode == KeyEvent.KEYCODE_DPAD_CENTER)){
+                    if ((keyCode == KeyEvent.KEYCODE_DPAD_CENTER) || (keyCode == KeyEvent.KEYCODE_DPAD_CENTER)) {
                         myData.add(etInput.getText().toString());
                         aa.notifyDataSetChanged();
                         etInput.setText("");
@@ -37,6 +42,17 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        FragmentManager fm = getFragmentManager();
+        Fragment fragment = fm.findFragmentByTag("blank");
+        if (fragment == null){
+            FragmentTransaction transaction = fm.beginTransaction();
+            transaction.add(BlankFragment.newInstance("blank","yes"),"blank");
+            transaction.addToBackStack("blank");
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.setCustomAnimations(android.support.design.R.anim.abc_fade_in,android.support.design.R.anim.abc_fade_out);
+            transaction.commit();
+        }
     }
 
 
