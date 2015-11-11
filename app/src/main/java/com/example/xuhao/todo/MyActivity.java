@@ -33,7 +33,7 @@ public class MyActivity extends AppCompatActivity implements NewItemFragment.OnN
         FragmentManager fm = getFragmentManager();
         ToDoListFragment toDoListFragment = (ToDoListFragment)fm.findFragmentById(R.id.fgToDoList);
         toDoItems = new ArrayList<String>();
-        aa = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,toDoItems);
+        aa = new ArrayAdapter<String>(this,R.layout.todolist_item,toDoItems);
         toDoListFragment.setListAdapter(aa);
     }
 
